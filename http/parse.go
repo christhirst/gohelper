@@ -3,18 +3,20 @@ package http
 import (
 	"encoding/json"
 	"io"
+	"net/http"
 
 	"github.com/rs/zerolog/log"
 )
 
-func ParseBody() {
-	var keys map[string]string
+func ParseBody[t any](r *http.Request, jsonTarget t) (t, error) {
 	body, err := io.ReadAll(r.Body)
 	if err != nil {
 		log.Error().Err(err).Msg("Unable to read body")
 	}
-	err = json.Unmarshal(body, &keys)
+	err = json.Unmarshal(body, &jsonTarget)
 	if err != nil {
 		log.Error().Err(err).Msg("Unable to Unmarshal file")
 	}
+
+	return jsonTarget, err
 }
