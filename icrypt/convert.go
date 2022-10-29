@@ -1,4 +1,4 @@
-package crypt
+package icrypt
 
 import (
 	"crypto/rsa"
