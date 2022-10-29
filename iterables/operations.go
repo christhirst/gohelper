@@ -1,6 +1,6 @@
 package iterables
 
-func findAndDelete(s []int, item int) []int {
+func FindAndDelete(s []int, item int) []int {
 	index := 0
 	for _, i := range s {
 		if i != item {
