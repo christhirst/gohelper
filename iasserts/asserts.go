@@ -7,18 +7,16 @@ import (
 
 func AssertNotComparable[T any](t *testing.T, got, want T) {
 	t.Helper()
-
-	if !reflect.DeepEqual(got, want) {
-		t.Error()
+	if equal := reflect.DeepEqual(got, want); !equal {
+		t.Errorf("Want: %v is not equal to got: %v, equal: %v", want, got, equal)
 	}
 
 }
 
 func AssertComparable[T comparable](t *testing.T, got, want T) {
 	t.Helper()
-
 	if got != want {
-		t.Error()
+		t.Errorf("Want: %v is not equal to got: %v", want, got)
 	}
 
 }
