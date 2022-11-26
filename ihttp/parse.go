@@ -2,6 +2,7 @@ package ihttp
 
 import (
 	"encoding/json"
+	"errors"
 	"io"
 	"net/http"
 
@@ -19,4 +20,26 @@ func ParseBody[t any](r *http.Request, jsonTarget t) (t, error) {
 	}
 
 	return jsonTarget, err
+}
+
+func UrlExtractor(r *http.Request, formList []string) (queryListMap map[string][]string, err error) {
+	queryListMap = make(map[string][]string)
+	for i, v := range r.URL.Query() {
+		if len(v) > 0 {
+			queryListMap[i] = v
+		}
+	}
+	if len(formList) <= len(queryListMap) {
+		err = nil
+		return
+	} else {
+		var notPresent string
+		for _, v := range formList {
+			if len(r.URL.Query()[v]) == 0 {
+				notPresent = v
+			}
+			err = errors.New("One postForm Value not present: " + notPresent)
+		}
+		return
+	}
 }
