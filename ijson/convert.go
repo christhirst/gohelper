@@ -12,7 +12,7 @@ func StructToJson(bodybytes *bytes.Buffer) (map[string]interface{}, error) {
 	var empJSON map[string]interface{}
 	err := decoder.Decode(&empJSON)
 	if err != nil {
-		return nil, errors.New("Unable to convert request body")
+		return nil, errors.New("Unable to convert struct to json")
 	}
 
 	return empJSON, nil
@@ -31,3 +31,19 @@ func RenderJSON(w http.ResponseWriter, v interface{}, statusCode int) {
 
 	_, _ = w.Write(buf.Bytes())
 }
+
+func JsonFromStruct[K any](w http.ResponseWriter,k K  , statusCode int) {	
+	jsonData, err := json.Marshal(k)
+
+if err != nil {
+	http.Error(w, err.Error(), http.StatusInternalServerError)
+	return
+}
+w.Header().Set("Content-Type", "application/json")
+_,err =w.Write(jsonData)
+
+}
+
+
+
+
