@@ -18,7 +18,6 @@ func ParseBody[t any](r *http.Request, jsonTarget t) (t, error) {
 	if err != nil {
 		log.Error().Err(err).Msg("Unable to Unmarshal file")
 	}
-
 	return jsonTarget, err
 }
 
