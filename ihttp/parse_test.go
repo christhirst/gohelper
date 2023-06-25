@@ -32,6 +32,6 @@ func TestParseHeader(t *testing.T) {
 	req.Header.Set("Authorization", "Basic Y2xpZW50bmFtZTQ6dGVzdHB3")
 	split := " "
 	header := "Authorization"
-	s, _ := ParseHeader(req, header, split, 1, true)
+	s, _ := ParseHeader(req, header, split, true)
 	t.Error(s)
 }

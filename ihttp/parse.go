@@ -46,11 +46,9 @@ func UrlExtractor(r *http.Request, formList []string) (queryListMap map[string][
 	}
 }
 
-func ParseHeader(r *http.Request, header, split string, entry int, base bool) (string, error) {
+func ParseHeader(r *http.Request, header, split string, base bool) (string, error) {
 	authheader := r.Header.Get(header)
-	fmt.Println(authheader)
-	idToken := strings.Split(authheader, " ")[entry]
-	fmt.Println(idToken)
+	idToken := strings.Split(authheader, " ")[1]
 	if base {
 		dIdToken, _ := base64.RawStdEncoding.DecodeString(idToken)
 		fmt.Println(string(dIdToken))
