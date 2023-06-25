@@ -51,7 +51,7 @@ func ParseHeader(r *http.Request, header, split string, entry int, base bool) (s
 	fmt.Println(authheader)
 	idToken := strings.Split(authheader, " ")[entry]
 	fmt.Println(idToken)
-	if base == true {
+	if base {
 		dIdToken, _ := base64.RawStdEncoding.DecodeString(idToken)
 		fmt.Println(string(dIdToken))
 		return string(dIdToken), nil
