@@ -1,10 +1,13 @@
 package ihttp
 
 import (
+	"encoding/base64"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"net/http"
+	"strings"
 
 	"github.com/rs/zerolog/log"
 )
@@ -41,4 +44,19 @@ func UrlExtractor(r *http.Request, formList []string) (queryListMap map[string][
 		}
 		return
 	}
+}
+
+func ParseHeader(r *http.Request, header, split string, entry int, base bool) (string, error) {
+	authheader := r.Header.Get(header)
+	fmt.Println(authheader)
+	idToken := strings.Split(authheader, " ")[entry]
+	fmt.Println(idToken)
+	if base == true {
+		dIdToken, _ := base64.RawStdEncoding.DecodeString(idToken)
+		fmt.Println(string(dIdToken))
+		return string(dIdToken), nil
+	} else {
+		return idToken, nil
+	}
+
 }

@@ -26,3 +26,12 @@ func TestPrefixFromDB(t *testing.T) {
 	s, _ := ParseBody(req, w)
 	t.Error(s)
 }
+
+func TestParseHeader(t *testing.T) {
+	req := httptest.NewRequest("POST", "/ldap/firstrq", nil)
+	req.Header.Set("Authorization", "Basic Y2xpZW50bmFtZTQ6dGVzdHB3")
+	split := " "
+	header := "Authorization"
+	s, _ := ParseHeader(req, header, split, 1, true)
+	t.Error(s)
+}
