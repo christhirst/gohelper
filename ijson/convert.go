@@ -29,7 +29,6 @@ func RenderJSON(w http.ResponseWriter, v interface{}, statusCode int) {
 	}
 	w.Header().Set("Content-Type", "application/json; charset=utf-8")
 	w.WriteHeader(statusCode)
-
 	_, _ = w.Write(buf.Bytes())
 }
 
